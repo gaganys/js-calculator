@@ -49,6 +49,89 @@ const calculateResult = (first, operator, second) => {
 	}
 }
 
+// Обработчик событий для ввода с клавиатуры
+document.addEventListener('keydown', event => {
+	const key = event.key
+
+	// Проверяем, является ли нажатая клавиша цифрой или точкой
+	if (/[0-9]/.test(key)) {
+		if (currentOperation === null) {
+			firstOperand += key
+		} else {
+			secondOperand += key
+		}
+		updateDisplay()
+	}
+
+	// Обработка точки
+	if (key === '.') {
+		if (currentOperation === null) {
+			if (!firstOperand.includes('.')) {
+				firstOperand += key
+			}
+		} else if (!secondOperand.includes('.')) {
+			secondOperand += key
+		}
+		updateDisplay()
+	}
+
+	// Проверяем, является ли нажатая клавиша операцией (+, -, *, /)
+	if (/[\+\-\*\/]/.test(key)) {
+		if (firstOperand) {
+			currentOperation = key
+			updateDisplay()
+		}
+	}
+
+	// Обработка клавиши Backspace для удаления последнего символа
+	if (key === 'Backspace') {
+		if (currentOperation === null) {
+			firstOperand = firstOperand.slice(0, -1)
+		} else {
+			secondOperand = secondOperand.slice(0, -1)
+		}
+		updateDisplay()
+	}
+
+	// Обработка клавиши Enter для выполнения операции
+	if (key === 'Enter') {
+		if (firstOperand && secondOperand && currentOperation) {
+			const result = calculateResult(
+				firstOperand,
+				currentOperation,
+				secondOperand
+			)
+
+			// Сохраняем операцию в историю
+			history.push({
+				firstOperand: firstOperand,
+				operator: currentOperation,
+				secondOperand: secondOperand,
+				result: result,
+			})
+
+			// Отображаем результат в правой части
+			rightSide.textContent = result
+
+			// Очищаем текущие значения для следующей операции
+			firstOperand = ''
+			secondOperand = ''
+			currentOperation = null
+
+			updateDisplay()
+		}
+	}
+
+	// Обработка клавиши Escape для полной очистки
+	if (key === 'Escape') {
+		firstOperand = ''
+		secondOperand = ''
+		currentOperation = null
+		updateDisplay()
+	}
+})
+
+// Обработчики для кнопок калькулятора
 numbers.forEach(number => {
 	number.addEventListener('click', () => {
 		const value = number.textContent
