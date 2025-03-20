@@ -3,10 +3,51 @@
 	<head>
 		<meta charset="UTF-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
-		<title>Document</title>
+		<title>Калькулятор</title>
 	</head>
 	<body>
-		<h1>Hello world</h1>
-		<script src='./script.js'></script>
+		<header>Calculator v1</header>
+
+		<main>
+			<section class="calculator">
+				<div class="calc">
+					<div class="calculations">
+						<div class="left-side"></div>
+						<div class="right-side"></div>
+					</div>
+					<div class="face">
+						<div class="numbers">
+							<button class="number number-1">1</button>
+							<button class="number number-2">2</button>
+							<button class="number number-3">3</button>
+							<button class="number number-4">4</button>
+							<button class="number number-5">5</button>
+							<button class="number number-6">6</button>
+							<button class="number number-7">7</button>
+							<button class="number number-8">8</button>
+							<button class="number number-9">9</button>
+							<button class="number number-dot">.</button>
+							<button class="number number-0">0</button>
+							<button class="number number-delete" id="number-delete"><</button>
+						</div>
+						<div class="operations">
+							<div class="actions">
+								<button class='clear' id='clear'>C</button>
+								<button class='equals' id='equals'>=</button>
+							</div>
+							<div class='oper'>
+								<button class="operation-btn">+</button>
+								<button class="operation-btn">-</button>
+								<button class="operation-btn">x</button>
+								<button class="operation-btn">/</button>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class='answers'></div>
+			</section>
+		</main>
+
+		<script src="./script.js"></script>
 	</body>
 </html>
